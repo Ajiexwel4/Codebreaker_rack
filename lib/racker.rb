@@ -1,5 +1,5 @@
-require_relative 'game'
 require 'erb'
+require_relative 'game'
 
 class Racker
   def self.call(env)
@@ -8,14 +8,25 @@ class Racker
 
   def initialize(env)
     @request = Rack::Request.new(env)
-    @game = Codebreaker::Game.new
   end
 
   def response
     case @request.path
     when '/' then Rack::Response.new(render('index.html.erb'))
+    when '/start' then start
     when '/update_guess' then update_guess
+
     else Rack::Response.new('Not Found', 404)
+    end
+  end
+
+  def start
+    @request.session.clear
+    @request.session[:game] = Codebreaker::Game.new
+    @request.session[:hint] = game.secret_code[rand(0..3)]
+    Rack::Response.new do |response|
+      response.set_cookie('guess', '')
+      response.redirect('/')
     end
   end
 
@@ -26,13 +37,20 @@ class Racker
     end
   end
 
+  def game
+    @request.session[:game]
+  end
+
+  def guess
+    @request.cookies['guess']
+  end
+
+  def hint
+    @request.session[:hint]
+  end
+
   def render(template)
     path = File.expand_path("../views/#{template}", __FILE__)
     ERB.new(File.read(path)).result(binding)
-  end
-
-  def input_code
-    player_code = @request.cookies['guess']
-    player_code if player_code.size == 4 || player_code == 'hint'
   end
 end

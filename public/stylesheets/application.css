@@ -19,3 +19,5 @@ a {
 
 .error { color: #980B0B; }
 .hint  { color: #0E530C; }
+
+button { margin-top: 50px; }

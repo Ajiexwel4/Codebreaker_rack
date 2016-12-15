@@ -14,24 +14,28 @@
 	  A + indicates an exact match: one of the numbers in the guess is the same as one of the numbers in the secret code and in the same position.
 
 	  A - indicates a number match: one of the numbers in the guess is the same as one of the numbers in the secret code but in a different position.</p>
-	  <%= @game.secret_code %>
-	  <h2>You guess: '<%= input_code %>'</h2>
-	  <h2>Checking: '<%= @game.check_guess(input_code) %>'</h2>
-	  
-	  <% if input_code != @request.cookies['guess'] %> 
-	  	<p class="error">You should type 4 numbers in code or "hint"!!!</p> 
-	  <% end %>
-	  <% if input_code == "hint" %> 
-	  	<p class="hint">Hint: Secret code contains: <%= @game.secret_code[rand(0..3)] %>  </p> 
-	  <% end %>
+	  <% unless game %>
+	  	  <form action="/start" method="post">
+	        <button type="submit">Start game</button>
+	      </form>
+      <% else %>	 
+		  <h2>You guess: '<%= guess %>'</h2>
+		  <h2>Checking: '<%= game.check_guess(guess) %>'</h2>	        
+	        <% if game.hint == 0 %>
+	          <p class="hint">Hint: Secret code contains: <%= hint %></p>
+	        <% end %> 
+	            
+		  <h4><%= "You have #{game.attempts} attempts and #{game.hint} hint." %></h4>
+		  <p>'Type your secret code or "hint": '</p>
+		  <form method="post" action="/update_guess">
+		    <input name="guess" autofocus=true type="text" pattern="^[1-6]{4}|hint$" required>
+		    <input type="submit" value="Try!">
+		  </form>
 
-	  <h4><%= "You have #{@game.attempts} attempts and #{@game.hint} hint." %></h4>
-	  <p>'Type your secret code or "hint": '</p>
-	  <form method="post" action="/update_guess">
-	    <input name="guess" type="text">
-	    <input type="submit" value="Try!">
-	  </form>
-	  
+		  <form method="post" action="/start">
+       		<button type="submit">New game</button>
+       	  </form>
+	  <% end %>
     </div>    
   </body>
 </html>

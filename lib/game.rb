@@ -20,16 +20,12 @@ module Codebreaker
 
     def check_guess(guess)
       @player_code = guess
-      hinter
-      check_win
-    end
-
-    def hinter
       if @player_code == 'hint' && @hint.nonzero?
-        puts 'Hint: Secret code contains: ' + @secret_code[rand(0..3)]
-        @hint -= 1
         @attempts += 1
+        @hint -= 1
+        "Hint: Secret code contains: #{@secret_code[rand(0..3)]}"
       end
+      check_win
     end
 
     def score_count
