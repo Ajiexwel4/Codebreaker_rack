@@ -3,8 +3,9 @@ module Codebreaker
     def check_win
       if win?
         'Congratulation! You win!'
-      elsif @attempts == 0
+      elsif @attempts.zero?
         @hint = 0
+        @game_start = false
         "Game over! Secret code is #{@secret_code}."
       else
         @attempts -= 1

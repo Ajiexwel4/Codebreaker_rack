@@ -6,16 +6,15 @@ module Codebreaker
 
     ATTEMPTS  = 7
     HINT      = 1
-    CODE_SIZE = 4
-    RANGE     = 1..6
 
-    attr_accessor :secret_code, :player_code, :hint, :attempts, :score
-    def initialize(score = 0)
-      @secret_code = Array.new(CODE_SIZE) { rand(RANGE) }.join
+    attr_accessor :secret_code, :player_code, :hint, :attempts, :score, :game_start
+    def initialize
+      @secret_code = Array.new(4) { rand(1..6) }.join
       @player_code = ''
       @hint        = HINT
       @attempts    = ATTEMPTS
-      @score       = score
+      @score       = 0
+      @game_start  = true
     end
 
     def check_guess(guess)

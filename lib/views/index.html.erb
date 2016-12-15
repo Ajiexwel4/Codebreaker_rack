@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
   </head>
   <body>
-    <div id='container'>
+   <div id='container'>
+   	<div id="rules">
 	  <h1>The 'Codebreaker' game</h1>
 	  <p>Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. The code-maker, which will be played by the application we’re going to write, creates a secret code of four numbers between 1 and 6.
 
@@ -14,23 +15,43 @@
 	  A + indicates an exact match: one of the numbers in the guess is the same as one of the numbers in the secret code and in the same position.
 
 	  A - indicates a number match: one of the numbers in the guess is the same as one of the numbers in the secret code but in a different position.</p>
+	</div>
+	  
 	  <% unless game %>
-	  	  <form action="/start" method="post">
+	  	  <form method="post" action="/start">
 	        <button type="submit">Start game</button>
 	      </form>
-      <% else %>	 
-		  <h2>You guess: '<%= guess %>'</h2>
-		  <h2>Checking: '<%= game.check_guess(guess) %>'</h2>	        
-	        <% if game.hint == 0 %>
+      <% else %>	      	 	
+		  <h2>You guess: <%= guess %></h2>
+		  <h2>Checking: <%= game.check_guess(guess) %></h2>
+
+	     <% unless game.win? || game.game_start == false %>       
+	        <% if game.hint.zero? %>
 	          <p class="hint">Hint: Secret code contains: <%= hint %></p>
 	        <% end %> 
-	            
-		  <h4><%= "You have #{game.attempts} attempts and #{game.hint} hint." %></h4>
-		  <p>'Type your secret code or "hint": '</p>
-		  <form method="post" action="/update_guess">
-		    <input name="guess" autofocus=true type="text" pattern="^[1-6]{4}|hint$" required>
-		    <input type="submit" value="Try!">
-		  </form>
+
+	        <h4>You have 
+	        	<span> <%= "#{game.attempts}" %></span> attempts and 
+	        	<span> <%= "#{game.hint}" %></span> hint.
+	        </h4>
+
+		    <p class="hint">Type your secret code or "hint": </p>		    
+		    <form method="post" action="/update_guess">
+		      <input name="guess" autofocus=true type="text" pattern="^[1-6]{4}|hint$">
+		      <input type="submit" value="Try!">
+		    </form>
+		 <% else %>
+		 	<% if game.game_start == false %>
+		 		<h2 class="hint">Don't worry! Next time you can win!:)</h2>
+		 	<% else %>		 		
+			 	<p class="score">Your score: <span><%= game.score_count %><span></p>
+			 	<p class="score">Type your name for saving score: </p>
+			 	<form method="post" action="/save_score">
+			 	  <input name="player_name" autofocus=true type="text">
+		          <input type="submit" value="Save score">
+		      	</form>
+	      	<% end %>
+		 <% end %>
 
 		  <form method="post" action="/start">
        		<button type="submit">New game</button>

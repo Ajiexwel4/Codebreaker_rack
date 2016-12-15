@@ -15,7 +15,8 @@ class Racker
     when '/' then Rack::Response.new(render('index.html.erb'))
     when '/start' then start
     when '/update_guess' then update_guess
-
+    when '/save_score' then save_score
+    when '/scores' then Rack::Response.new(render('scores.html.erb'))
     else Rack::Response.new('Not Found', 404)
     end
   end
@@ -47,6 +48,25 @@ class Racker
 
   def hint
     @request.session[:hint]
+  end
+
+  def save_score
+    save_score_file(@request.params['player_name'])
+    Rack::Response.new do |response|
+      response.redirect('/scores')
+    end
+  end
+
+  def path_score_file
+    File.expand_path("../../score/scores.txt", __FILE__)
+  end
+
+  def read_scores
+    File.open(path_score_file) { |file| file.readlines }
+  end
+
+  def save_score_file(name)
+    File.open(path_score_file, 'a') {|file| file.puts "#{name}: #{game.score} - #{Time.now.asctime}" }
   end
 
   def render(template)

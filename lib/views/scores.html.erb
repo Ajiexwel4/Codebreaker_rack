@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scores</title>
+    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+  </head>
+  <body>
+	<div>
+		<h2>You scores attached at the end of list</h2>
+		<p><%= read_scores.join(" = Codebreaker = ") %><p>
+
+		<form method="post" action="/start">
+       	  <button type="submit">New game</button>
+       	</form>
+	</div>    
+  </body>
+</html>
