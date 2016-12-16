@@ -9,7 +9,7 @@ module Codebreaker
         "Game over! Secret code is #{@secret_code}."
       else
         @attempts -= 1
-        "+"*pluses + '-'*(minuses-pluses)
+        '+' * pluses + '-' * (minuses - pluses)
       end
     end
 
@@ -19,7 +19,7 @@ module Codebreaker
 
     def minuses
       secret_code = @secret_code.chars.to_a
-      @player_code.to_s.chars.to_a.map{ |num| secret_code[secret_code.find_index(num)] = '-' if secret_code.include?(num) }.count('-')
+      @player_code.to_s.chars.to_a.map { |num| secret_code[secret_code.find_index(num)] = '-' if secret_code.include?(num) }.count('-')
     end
 
     def win?

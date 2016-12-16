@@ -7,7 +7,7 @@ module Codebreaker
     ATTEMPTS  = 7
     HINT      = 1
 
-    attr_accessor :secret_code, :player_code, :hint, :attempts, :score, :game_start
+    attr_reader :secret_code, :hint, :attempts, :score, :game_start
     def initialize
       @secret_code = Array.new(4) { rand(1..6) }.join
       @player_code = ''
