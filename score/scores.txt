@@ -1,0 +1,4 @@
+Alex: 300 - Fri Dec 16 17:29:25 2016
+Alex: 350 - Fri Dec 16 17:39:56 2016
+Alex: 300 - Fri Dec 16 17:48:53 2016
+Alex: 500 - Fri Dec 16 18:16:04 2016

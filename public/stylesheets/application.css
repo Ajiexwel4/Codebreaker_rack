@@ -1,22 +1,30 @@
 body {
-  background-color: #4B7399;
+  background: url(/img/bg.jpeg) no-repeat;
+  -moz-background-size: 100%; /* Firefox 3.6+ */
+  -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+  -o-background-size: 100%; /* Opera 9.6+ */
+  background-size: 100%; /* Современные браузеры */
+  
   font-family: Verdana;
   font-size: 14px;
 }
+
 #rules {   
   background-color: #C4CCC3; 
   padding: 10px; 
 }
 
-#container {
+#container {  
   width: 75%;
   margin: 0 auto;
+  
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,2989d8+50,207cca+51,7db9e8+100;Blue+Gloss+Default */
   background: #1e5799; 
   background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+  
   font-family: Verdana;
   padding: 20px 40px;
   border: solid 1px black;
@@ -34,4 +42,4 @@ h1,h2,h4 { color: #0C0863; }
 
 .info, span  { color: #490075; }
 
-button { margin-top: 50px; }
+button { margin-top: 20px; }
