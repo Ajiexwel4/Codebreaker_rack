@@ -52,7 +52,7 @@ class Racker
   end
 
   def read_score
-    File.open(path_score_file, &:readlines)
+    File.open(score_file_path, &:readlines)
   end
 
   private
@@ -70,10 +70,10 @@ class Racker
   end
 
   def save_score_file(name)
-    File.open(path_score_file, 'a') { |file| file.puts "#{name} got #{game.score} score on #{Time.now.asctime}" }
+    File.open(score_file_path, 'a') { |file| file.puts "#{name} got #{game.score} score on #{Time.now.asctime}" }
   end
 
-  def path_score_file
+  def score_file_path
     File.expand_path('../../score/score.txt', __FILE__)
   end
 end
