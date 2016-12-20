@@ -1,5 +1,5 @@
 require 'erb'
-require_relative 'game'
+require 'codebreaker'
 
 class Racker
   def self.call(env)
@@ -25,11 +25,12 @@ class Racker
     @request.session.clear
     @request.session[:game] = Codebreaker::Game.new
     @request.session[:hint] = game.secret_code[rand(0..3)]
-    cookie_guess_set('')
+    redirect_to('/')
   end
 
   def update_guess
-    cookie_guess_set(@request.params['guess'])
+    @request.session[:guess] = @request.params['guess']
+    redirect_to('/')
   end
 
   def game
@@ -37,7 +38,7 @@ class Racker
   end
 
   def guess
-    @request.cookies['guess']
+    @request.session[:guess]
   end
 
   def hint
@@ -46,9 +47,7 @@ class Racker
 
   def save_score
     save_score_file(@request.params['player_name'])
-    Rack::Response.new do |response|
-      response.redirect('/score')
-    end
+    redirect_to('/score')
   end
 
   def read_score
@@ -57,16 +56,13 @@ class Racker
 
   private
 
+  def redirect_to(path)
+    Rack::Response.new { |response| response.redirect(path) }
+  end
+
   def render(template)
     path = File.expand_path("../views/#{template}", __FILE__)
     ERB.new(File.read(path)).result(binding)
-  end
-
-  def cookie_guess_set(param)
-    Rack::Response.new do |response|
-      response.set_cookie('guess', param)
-      response.redirect('/')
-    end
   end
 
   def save_score_file(name)
