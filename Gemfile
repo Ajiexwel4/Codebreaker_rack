@@ -6,3 +6,5 @@ gem "rack"
 gem "rspec"
 
 gem "Codebreaker_RG2016"
+
+gem "capybara"

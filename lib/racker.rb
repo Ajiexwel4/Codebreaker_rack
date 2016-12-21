@@ -66,7 +66,9 @@ class Racker
   end
 
   def save_score_file(name)
-    File.open(score_file_path, 'a') { |file| file.puts "#{name} got #{game.score} score on #{Time.now.asctime}" }
+    File.open(score_file_path, 'a') do |file|
+      file.puts "#{name} got #{game.score} score on #{Time.now.asctime}"
+    end
   end
 
   def score_file_path
