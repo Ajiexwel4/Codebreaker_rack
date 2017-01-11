@@ -17,7 +17,7 @@ class Racker
     when '/update_guess' then update_guess
     when '/save_score'   then save_score
     when '/score'        then Rack::Response.new(render('score.html.erb'))
-    else Rack::Response.new('Not Found', 404)
+    else Rack::Response.new(render('404.html'))
     end
   end
 

@@ -64,6 +64,10 @@ feature Racker do
 
   scenario 'unknown path' do
     visit '/unknown'
-    expect(status_code).to be(404)
+    expect(status_code).to be(200)
+    expect(page).to have_content('doesn\'t exist.')
+    expect(page).to have_current_path('/unknown')
   end
+
+
 end

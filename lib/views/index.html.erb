@@ -22,9 +22,7 @@
     </div>
     
     <% unless game %>
-      <form method="post" action="/start">
-        <button type="submit">Start game</button>
-      </form>
+      <a href="/start"><button>Start game</button></a>
     <% else %>            
       <h2>Your guess: <%= guess %></h2>
       <h2>Checking: <%= game.check_guess(guess) %></h2>
@@ -59,9 +57,7 @@
         <% end %>
       <% end %>
 
-      <form method="post" action="/start">
-        <button type="submit">New game</button>
-      </form>
+      <a href="/start"><button>New game</button></a>
     <% end %>
    </div>             
   </body>
