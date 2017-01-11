@@ -4,13 +4,13 @@ feature Racker do
     after  { expect(page).to have_current_path('/') }
 
     scenario 'start game' do
-  	  click_button('Start') || click_button('New game')
+  	  click_link('Start') || click_link('New game')
       expect(page).to have_content('Your guess:')
   	end
 
     context 'player inputs code' do
       scenario 'decreases attempts' do
-        click_button('Start')
+        click_link('Start')
         fill_in('guess', with: '1111')
         click_button('Try!')
         expect(page).to have_content('8 attempts')
@@ -18,7 +18,7 @@ feature Racker do
 
       context 'player inputs "hint"' do
         before do
-          click_button('Start')
+          click_link('Start')
           fill_in('guess', with: 'hint')
           click_button('Try!')
         end
@@ -37,7 +37,7 @@ feature Racker do
       end
 
       scenario 'shows game_over' do
-        click_button('Start')
+        click_link('Start')
         10.times do
           fill_in('guess', with: '1111')
           click_button('Try!')
@@ -57,7 +57,7 @@ feature Racker do
     end
 
     scenario 'starts new game from "/score" path' do
-      click_button('New game')
+      click_link('New game')
       expect(page).to have_current_path('/')
     end
   end
